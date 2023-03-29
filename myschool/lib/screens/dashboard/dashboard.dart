@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../constants.dart';
 
 import '../../controllers/authController.dart';
-import '../../controllers/evenementController.dart';
+import '../../main.dart';
 import '../../widgets/customAlert.dart';
 import '../../widgets/loadingWidget.dart';
 import '../changePassword/changePasswordScreen.dart';
@@ -206,7 +205,7 @@ class _dashboardState extends State<dashboard> {
           return AlertDialog(
             title: const Text("Ajouter un enfant"),
             content: TextField(
-
+              style: const TextStyle(color: kPrimaryColor),
               controller: _identifiantStudentController,
               decoration: const InputDecoration(
                   hintText: "Son Matricule",
@@ -216,14 +215,13 @@ class _dashboardState extends State<dashboard> {
             ),
             actions: <Widget>[
               FloatingActionButton(
-                onPressed: () {
+                onPressed: () async{
                   Get.dialog(const Loading());
-                  Get.find<StudentController>().linkStudent(
-                      id: AuthController().user.id.toString(),
-                      data: {"matricule": _identifiantStudentController.text}).then((value){
-                        print(_identifiantStudentController.text);
-                          Get.back();
-                          CustomAlert(message: value['message'], success: value['success']);
+                  await Get.find<StudentController>().linkStudent(
+                      id: auth.user.id.toString(),
+                      data: {"matricule": _identifiantStudentController.text.trim()}).then((value){
+                          Get.back();Get.back();
+                          Get.dialog(CustomAlert(message: value['message'], success: value['success']));
                       });
                 },
                 child: const Text("Ok"),

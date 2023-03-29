@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myschool/routes.dart';
-import 'package:myschool/screens/intro_screen/intro_screen.dart';
 import 'package:myschool/screens/login_screen/login_screen.dart';
-import 'package:myschool/screens/splash_screen/splash_screen.dart';
 import 'package:myschool/theme.dart';
 import 'package:sizer/sizer.dart';
+
+import 'controllers/authController.dart';
+import 'controllers/studentController.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,9 @@ void main() {
 /*
 
  */
+
+    final AuthController auth = Get.put(AuthController());
+    final StudentController studentControler = Get.put(StudentController());
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

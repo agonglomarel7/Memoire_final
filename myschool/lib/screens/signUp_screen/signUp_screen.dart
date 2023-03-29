@@ -144,8 +144,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           sizedBox,
                           DefaultButton(
                             onPress: () async {
+                              print("xxx xxxx xxxx xx xx xx ");
                               if (_formKey.currentState!.validate()) {
-                                Get.dialog(Loading());
+                                Get.dialog(const Loading());
                                 var response = await auth.signUp(data: {
                                   "nom": nomController.text,
                                   "prenoms": prenomController.text,
