@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myschool/constants.dart';
 
 class CustomAlert extends StatelessWidget {
   final bool success;
@@ -19,8 +20,8 @@ class CustomAlert extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children:  [
-          Icon(Icons.sim_card_alert_rounded, color: success? Colors.green : Colors.red,),
-          Text(message),
+          Icon(Icons.sim_card_alert_rounded, color: success? Colors.green : Colors.red,size: 35,),
+          Text(message, style: const TextStyle(color: kPrimaryColor, fontSize: 14),textAlign: TextAlign.center,),
           ElevatedButton(onPressed: (){Get.back();}, child: const Text(" OK "))
         ],
       ),

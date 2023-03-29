@@ -3,14 +3,13 @@ import 'package:myschool/controllers/authController.dart';
 import 'package:myschool/models/student.dart';
 
 import '../assistants.dart/requestAssistant.dart';
-import 'package:http/http.dart' as http;
 
 class StudentController extends GetxController {
   String? authToken;
-  var _students = <Student>[].obs;
-  RxInt _scolarite_total = 0.obs;
-  RxInt _scolarite_total_rest = 0.obs;
-  RxInt _scolarite_total_paye = 0.obs;
+  final _students = <Student>[].obs;
+  final RxInt _scolarite_total = 0.obs;
+  final RxInt _scolarite_total_rest = 0.obs;
+  final RxInt _scolarite_total_paye = 0.obs;
   RxList get students {
     return _students;
   }
@@ -78,7 +77,8 @@ class StudentController extends GetxController {
 
   Future<Map> linkStudent({required String id, required Map data}) async {
     var response =
-        await RequestAssistant().putRequest("users/$id/link", "", data);
+        await RequestAssistant().putRequest("users/$id/link", Get.find<AuthController>().token, data);
+    print(response);
     if (response['success']) {
       return {"success": true, "message": "Eleve créé avec succes"};
     } else {

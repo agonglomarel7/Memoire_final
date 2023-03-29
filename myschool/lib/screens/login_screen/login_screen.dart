@@ -40,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _passwordVisible = true;
   }
@@ -119,11 +118,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             'email': emailController.text,
                             'mot_de_passe': passwordController.text
                           });
+                          
                           if (response['success']) {
-                            Timer(const Duration(seconds: 5),() async { await studentControler.getStudentByParent(
-                                id: "1");
-                            Get.off(() => const dashboard());});
-                            
+                            Timer(const Duration(seconds: 5), () async{
+                              await studentControler
+                                  .getStudentByParent(
+                                      id: auth.user.id.toString())
+                                  .then((value) =>
+                                      Get.off(() => const dashboard()));
+                            });
+                          }
+                          else{
+                            Get.back();
+                          Get.snackbar("Message", response['message'],
+                              snackPosition: SnackPosition.BOTTOM);
                           }
                         },
                         title: 'Connexion',
